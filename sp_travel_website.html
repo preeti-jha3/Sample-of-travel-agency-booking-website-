@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SP Travel – Travel Smart, Travel SP</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f4f6fb; color: #222; }
+
+    /* NAV */
+    .nav {
+      background: #1a56a0;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { color: #fff; font-size: 22px; font-weight: bold; }
+    .logo span { color: #f90; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { color: #cde; font-size: 14px; text-decoration: none; }
+    .nav-links a:hover { color: #fff; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #1a56a0, #0d3470);
+      padding: 40px 24px 30px;
+      color: #fff;
+    }
+    .hero-badge {
+      background: #f90;
+      color: #000;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .hero h1 { font-size: 32px; margin-bottom: 6px; }
+    .hero p { font-size: 15px; color: #b8d4f5; margin-bottom: 24px; }
+
+    /* SEARCH BOX */
+    .search-box {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      max-width: 700px;
+    }
+    .search-tabs { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .tab {
+      padding: 7px 18px;
+      border-radius: 25px;
+      font-size: 13px;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      color: #555;
+      background: #f5f5f5;
+      transition: all 0.2s;
+    }
+    .tab.active, .tab:hover { background: #1a56a0; color: #fff; border-color: #1a56a0; }
+    .search-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+    .inp {
+      flex: 1;
+      min-width: 140px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      color: #333;
+      outline: none;
+    }
+    .inp:focus { border-color: #1a56a0; }
+    .srch-btn {
+      background: #1a56a0;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 11px 24px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .srch-btn:hover { background: #154080; }
+
+    /* SECTIONS */
+    .section { padding: 24px; }
+    .sec-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .sec-title { font-size: 18px; font-weight: bold; color: #1a2a4a; }
+    .see-all { font-size: 13px; color: #1a56a0; cursor: pointer; text-decoration: underline; }
+
+    /* DESTINATIONS */
+    .dest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 500px) { .dest-grid { grid-template-columns: repeat(2, 1fr); } }
+    .dest-card {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      transition: transform 0.2s;
+    }
+    .dest-card:hover { transform: translateY(-3px); }
+    .dest-img {
+      width: 100%;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+    .dest-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: #fff;
+      font-size: 12px;
+      padding: 10px 8px 6px;
+      font-weight: bold;
+    }
+    .dest-price { font-size: 10px; color: #ffd; font-weight: normal; }
+
+    /* OFFER BANNER */
+    .offer-banner {
+      background: #fff8e6;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 0 24px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid #ffd09b;
+    }
+    .offer-icon { font-size: 36px; }
+    .offer-text { font-size: 13px; color: #7a4f00; }
+    .offer-text strong { font-size: 16px; color: #e65c00; display: block; margin-bottom: 3px; }
+
+    /* PACKAGES */
+    .pkg-card {
+      background: #fff;
+      border: 1px solid #e8ecf4;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+    .pkg-card:hover { box-shadow: 0 4px 16px rgba(26,86,160,0.12); }
+    .pkg-icon {
+      width: 52px; height: 52px;
+      border-radius: 10px;
+      background: #e8f0fe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+    .pkg-name { font-size: 15px; font-weight: bold; color: #1a2a4a; }
+    .pkg-sub { font-size: 12px; color: #888; margin-top: 3px; }
+    .pkg-price { font-size: 15px; font-weight: bold; color: #1a56a0; margin-top: 5px; }
+    .pkg-old { font-size: 12px; color: #aaa; text-decoration: line-through; margin-left: 6px; }
+
+    /* WHY US */
+    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .why-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      border: 1px solid #e8ecf4;
+    }
+    .why-icon { font-size: 28px; margin-bottom: 8px; }
+    .why-title { font-size: 13px; font-weight: bold; color: #1a2a4a; }
+    .why-sub { font-size: 11px; color: #888; margin-top: 4px; }
+
+    /* FOOTER */
+    .footer { background: #1a56a0; color: #b8d4f5; font-size: 12px; padding: 20px 24px; }
+    .footer-strip { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+    .footer-strip span { display: flex; align-items: center; gap: 6px; }
+    .footer-bottom { text-align: center; border-top: 1px solid #2a66b0; padding-top: 12px; color: #7aaad0; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="nav">
+  <div class="logo"><span>SP</span> Travel</div>
+  <div class="nav-links">
+    <a href="#">Flights</a>
+    <a href="#">Hotels</a>
+    <a href="#">Bus</a>
+    <a href="#">Packages</a>
+    <a href="#">Offers</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">✈️ Up to 20% OFF on Hotels &amp; Packages</div>
+  <h1>Explore The World</h1>
+  <p>Travel Smart, Travel SP</p>
+
+  <div class="search-box">
+    <div class="search-tabs">
+      <div class="tab active" onclick="selectTab(this)">✈️ Flights</div>
+      <div class="tab" onclick="selectTab(this)">🏨 Hotels</div>
+      <div class="tab" onclick="selectTab(this)">🚌 Bus</div>
+      <div class="tab" onclick="selectTab(this)">📦 Packages</div>
+      <div class="tab" onclick="selectTab(this)">🎯 Offers</div>
+    </div>
+    <div class="search-row">
+      <input class="inp" placeholder="From: Delhi (DEL)" />
+      <input class="inp" placeholder="To: Mumbai (BOM)" />
+    </div>
+    <div class="search-row">
+      <input class="inp" type="date" />
+      <input class="inp" placeholder="Return Date (optional)" />
+      <input class="inp" placeholder="1 Adult" />
+      <button class="srch-btn" onclick="alert('Searching flights...')">🔍 Search Flights</button>
+    </div>
+  </div>
+</div>
+
+<!-- POPULAR DESTINATIONS -->
+<div class="section">
+  <div class="sec-header">
+    <span class="sec-title">🌍 Popular Destinations</span>
+    <span class="see-all">View all →</span>
+  </div>
+  <div class="dest-grid">
+    <div class="dest-card" onclick="alert('Opening Delhi deals...')">
+      <div class="dest-img" style="background:#c2785c">🕌</div>
+      <div class="dest-label">Delhi<div class="dest-price">Flights from ₹2,499</div></div>
+    </div>
+    <div class="dest-card" onclick="alert('Opening Goa deals...')">
+      <div class="dest-img" style="background:#5c8ec2">🌊</div>
+      <div class="dest-label">Goa<div class="dest-price">Flights from ₹3,299</div></div>
+    </div>
+    <div class="dest-card" onclick="alert('Opening Manali deals...')">
+      <div class="dest-img" style="background:#5cb87a">🏔️</div>
+      <div class="dest-label">Manali<div class="dest-price">Packages from ₹8,999</div></div>
+    </div>
+    <div class="dest-card" onclick="alert('Opening Jaipur deals...')">
+      <div class="dest-img" style="background:#8e6cb5">🏛️</div>
+      <div class="dest-label">Jaipur<div class="dest-price">Flights from ₹2,799</div></div>
+    </div>
+    <div class="dest-card" onclick="alert('Opening Kerala deals...')">
+      <div class="dest-img" style="background:#c2a05c">🌿</div>
+      <div class="dest-label">Kerala<div class="dest-price">Packages from ₹11,499</div></div>
+    </div>
+    <div class="dest-card" onclick="alert('Opening Srinagar deals...')">
+      <div class="dest-img" style="background:#5cb8b2">❄️</div>
+      <div class="dest-label">Srinagar<div class="dest-price">Packages from ₹13,999</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- OFFER BANNER -->
+<div class="offer-banner">
+  <span class="offer-icon">🎁</span>
+  <div class="offer-text">
+    <strong>20% OFF on All Packages!</strong>
+    Use code <b>SPTRAVEL20</b> at checkout. Limited time offer only.
+  </div>
+</div>
+
+<!-- TOP PACKAGES -->
+<div class="section" style="padding-top:0">
+  <div class="sec-header">
+    <span class="sec-title">📦 Top Packages</span>
+    <span class="see-all">View all →</span>
+  </div>
+  <div class="pkg-card" onclick="alert('Opening Goa package...')">
+    <div class="pkg-icon">🏖️</div>
+    <div style="flex:1">
+      <div class="pkg-name">Goa Beach Escape — 4N/5D</div>
+      <div class="pkg-sub">Hotel + Flights + Sightseeing Included</div>
+      <div class="pkg-price">₹14,999 <span class="pkg-old">₹18,499</span></div>
+    </div>
+    <div style="font-size:20px;color:#ccc">›</div>
+  </div>
+  <div class="pkg-card" onclick="alert('Opening Manali package...')">
+    <div class="pkg-icon">🏔️</div>
+    <div style="flex:1">
+      <div class="pkg-name">Manali Adventure — 5N/6D</div>
+      <div class="pkg-sub">Hotel + Transfers + Adventure Activities</div>
+      <div class="pkg-price">₹21,500 <span class="pkg-old">₹26,000</span></div>
+    </div>
+    <div style="font-size:20px;color:#ccc">›</div>
+  </div>
+  <div class="pkg-card" onclick="alert('Opening Kerala package...')">
+    <div class="pkg-icon">🌴</div>
+    <div style="flex:1">
+      <div class="pkg-name">Kerala Backwaters — 6N/7D</div>
+      <div class="pkg-sub">Houseboat + Hotel + Flights Included</div>
+      <div class="pkg-price">₹28,999 <span class="pkg-old">₹34,000</span></div>
+    </div>
+    <div style="font-size:20px;color:#ccc">›</div>
+  </div>
+  <div class="pkg-card" onclick="alert('Opening Rajasthan package...')">
+    <div class="pkg-icon">🐪</div>
+    <div style="flex:1">
+      <div class="pkg-name">Rajasthan Royal Tour — 7N/8D</div>
+      <div class="pkg-sub">3 Cities + Heritage Hotels + Guide</div>
+      <div class="pkg-price">₹32,000 <span class="pkg-old">₹40,000</span></div>
+    </div>
+    <div style="font-size:20px;color:#ccc">›</div>
+  </div>
+</div>
+
+<!-- WHY BOOK WITH SP -->
+<div class="section" style="padding-top:0">
+  <div class="sec-header">
+    <span class="sec-title">⭐ Why Book with SP Travel?</span>
+  </div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">💰</div>
+      <div class="why-title">Best Price Guarantee</div>
+      <div class="why-sub">Lowest fares, always</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🔒</div>
+      <div class="why-title">Secure Payments</div>
+      <div class="why-sub">100% safe & encrypted</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📞</div>
+      <div class="why-title">24/7 Support</div>
+      <div class="why-sub">Always here to help</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🌍</div>
+      <div class="why-title">1M+ Travellers</div>
+      <div class="why-sub">Trusted by millions</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-strip">
+    <span>✈️ Best Price</span>
+    <span>🔒 Secure Payments</span>
+    <span>📞 24/7 Support</span>
+    <span>🌍 1M+ Travellers</span>
+  </div>
+  <div class="footer-bottom">© 2026 SP Travel | Spbrand.in | All rights reserved</div>
+</div>
+
+<script>
+  function selectTab(el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
